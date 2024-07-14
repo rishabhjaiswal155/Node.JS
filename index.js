@@ -17,10 +17,21 @@
 
 //Module Caching
 
-const superHero=require("./super-hero")
-console.log(superHero.getName())
-superHero.setName("Superman")
-console.log(superHero.getName())
+// const superHero=require("./super-hero")
+// console.log(superHero.getName())
+// superHero.setName("Superman")
+// console.log(superHero.getName())
 
-const hanuman=require("./super-hero")
+// const hanuman=require("./super-hero")
+// console.log(hanuman.getName())
+
+
+const superHero=require("./super-hero")
+
+const batman =new superHero("Batman")
+console.log(batman.getName())
+batman.setName("Superman")
+console.log(batman.getName())
+
+const hanuman=new superHero("Hanuman")
 console.log(hanuman.getName())

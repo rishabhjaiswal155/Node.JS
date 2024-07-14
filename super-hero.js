@@ -9,5 +9,8 @@ class superHero {
     this.name = name;
   }
 }
+//exporting the instance
+//module.exports = new superHero("Batman");
 
-module.exports = new superHero("Batman");
+//exporting the class itself
+module.exports=superHero;
