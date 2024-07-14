@@ -78,33 +78,49 @@
 
 
 //Path Modules(Built in modules of node)
-const path=require("node:path")
-console.log(__filename)
-console.log(__dirname)
+// const path=require("node:path")
+// console.log(__filename)
+// console.log(__dirname)
 
-console.log(path.basename(__filename))
-console.log(path.basename(__dirname))
+// console.log(path.basename(__filename))
+// console.log(path.basename(__dirname))
 
-console.log(path.extname(__filename))
-console.log(path.extname(__dirname))
+// console.log(path.extname(__filename))
+// console.log(path.extname(__dirname))
 
-console.log(path.parse(__filename))
-console.log(path.parse(__dirname))
+// console.log(path.parse(__filename))
+// console.log(path.parse(__dirname))
 
-console.log(path.format(path.parse(__filename)))
-console.log(path.format(path.parse(__dirname)))
+// console.log(path.format(path.parse(__filename)))
+// console.log(path.format(path.parse(__dirname)))
 
-console.log(path.isAbsolute(__filename))
-console.log(path.isAbsolute("./data.json"))
+// console.log(path.isAbsolute(__filename))
+// console.log(path.isAbsolute("./data.json"))
 
-console.log(path.join("folder1","folder2","index.html"))
-console.log(path.join("/folder1","folder2","index.html"))
-console.log(path.join("/folder1","//folder2","index.html"))
-console.log(path.join("/folder1","//folder2","../index.html"))
+// console.log(path.join("folder1","folder2","index.html"))
+// console.log(path.join("/folder1","folder2","index.html"))
+// console.log(path.join("/folder1","//folder2","index.html"))
+// console.log(path.join("/folder1","//folder2","../index.html"))
 
-console.log(path.resolve("folder1","folder2","index.html"))
-console.log(path.resolve("/folder1","folder2","index.html"))
-console.log(path.resolve("/folder1","//folder2","index.html"))
-console.log(path.resolve("/folder1","//folder2","../index.html"))
-console.log(path.resolve(__dirname,"data.json"))
+// console.log(path.resolve("folder1","folder2","index.html"))
+// console.log(path.resolve("/folder1","folder2","index.html"))
+// console.log(path.resolve("/folder1","//folder2","index.html"))
+// console.log(path.resolve("/folder1","//folder2","../index.html"))
+// console.log(path.resolve(__dirname,"data.json"))
 
+
+//Events Module
+
+const EventEmitter=require("node:events")
+const emitter=new EventEmitter()
+
+emitter.on("order-pizza",(size,topping)=>{
+    console.log(`order received Baking a ${size} pizza with ${topping}`)
+})
+
+emitter.on("order-pizza",(size)=>{
+    if(size==='large'){
+    console.log("Serving Complimentary drinks enjoy!!!")}
+})
+
+emitter.emit("order-pizza","large","Mushroom")
