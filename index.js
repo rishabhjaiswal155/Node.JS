@@ -11,5 +11,16 @@
 //Module Scope and Immediate Invoked Function Expression(IIFE)
 //Each loaded module has private scope to avoid conflicts in varable and Functions name
 
-require("./batman")
-require("./superman")
+// require("./batman")
+// require("./superman")
+
+
+//Module Caching
+
+const superHero=require("./super-hero")
+console.log(superHero.getName())
+superHero.setName("Superman")
+console.log(superHero.getName())
+
+const hanuman=require("./super-hero")
+console.log(hanuman.getName())
