@@ -1,0 +1,9 @@
+{
+    "name":"Rishabh Jaiswal",
+    "age":28,
+    "address":{
+        "street":"Akola road",
+        "city":"Akot",
+        "state":"Maharashtra"
+    }
+}

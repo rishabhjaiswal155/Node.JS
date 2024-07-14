@@ -67,6 +67,11 @@
 
 //module.exports vs exports
 //This gives error with only exports
-const math=require("./math")
-console.log(math.add(2,3))
-console.log(math.sub(2,3))
+// const math=require("./math")
+// console.log(math.add(2,3))
+// console.log(math.sub(2,3))
+
+
+//Importing Json
+const data=require("./data.json")
+console.log(data.address.city)
