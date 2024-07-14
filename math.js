@@ -35,6 +35,18 @@
 
 
 //pattern-5
-exports.add=(a,b)=>{
+// exports.add=(a,b)=>{
+//     return a+b
+// }
+
+//module.exports vs exports
+
+const add=(a,b)=>{
     return a+b
 }
+
+const sub=(a,b)=>{
+    return a-b
+}
+
+exports={add,sub}
