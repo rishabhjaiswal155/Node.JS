@@ -26,12 +26,41 @@
 // console.log(hanuman.getName())
 
 
-const superHero=require("./super-hero")
+// const superHero=require("./super-hero")
 
-const batman =new superHero("Batman")
-console.log(batman.getName())
-batman.setName("Superman")
-console.log(batman.getName())
+// const batman =new superHero("Batman")
+// console.log(batman.getName())
+// batman.setName("Superman")
+// console.log(batman.getName())
 
-const hanuman=new superHero("Hanuman")
-console.log(hanuman.getName())
+// const hanuman=new superHero("Hanuman")
+// console.log(hanuman.getName())
+
+
+//Import export patterns
+//pattern-1
+// const add=require("./math")
+// console.log(add(2,3))
+
+//pattern-2
+// const add=require("./math")
+// console.log(add(2,3))
+
+//pattern-3
+// const math=require("./math")
+// //destructuring the object
+// const {add,sub}=math
+// // console.log(math.add(2,3))
+// // console.log(math.sub(2,3))
+// console.log(add(2,3))
+// console.log(sub(2,3))
+
+//pattern-4
+// const math=require("./math")
+// console.log(math.add(2,3))
+// console.log(math.sub(2,3))
+
+
+//pattern-5
+const math=require("./math")
+console.log(math.add(2,3))
