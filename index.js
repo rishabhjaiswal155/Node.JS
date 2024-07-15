@@ -143,32 +143,53 @@
 
 //fs Module(Builtin module)
 
-const fs = require("node:fs");
-console.log("first");
-const filecontents = fs.readFileSync("./file.txt", "utf-8");
-console.log(filecontents);
-console.log("second");
-fs.readFile("./file.txt", "utf-8", (error, data) => {
-  if (error) {
-    console.log(error);
-  } else {
+// const fs = require("node:fs");
+// console.log("first");
+// const filecontents = fs.readFileSync("./file.txt", "utf-8");
+// console.log(filecontents);
+// console.log("second");
+// fs.readFile("./file.txt", "utf-8", (error, data) => {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log(data);
+//   }
+// });
+// console.log("Third");
+
+// fs.writeFileSync("./greet.txt", "Enjoying coding in NodeJS,", (error) => {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log("file written");
+//   }
+// });
+
+// fs.writeFile("./greet.txt", "NodeJS is intresting",{flag:'a'}, (error) => {
+//   if (error) {
+//     console.log();
+//   } else {
+//     console.log("file written");
+//   }
+// });
+
+//fs promise module
+
+const fs = require("node:fs/promises");
+fs.readFile("./greet.txt", "utf-8")
+  .then((data) => console.log(data))
+  .catch((error) => console.log(error));
+
+//fs promise module with async and await
+
+const fs1 = require("node:fs/promises");
+async function readFile() {
+  try {
+    const data = await fs1.readFile("./file.txt", "utf-8");
     console.log(data);
-  }
-});
-console.log("Third");
-
-fs.writeFileSync("./greet.txt", "Enjoying coding in NodeJS,", (error) => {
-  if (error) {
+  } catch (error) {
     console.log(error);
-  } else {
-    console.log("file written");
   }
-});
+}
 
-fs.writeFile("./greet.txt", "NodeJS is intresting",{flag:'a'}, (error) => {
-  if (error) {
-    console.log();
-  } else {
-    console.log("file written");
-  }
-});
+readFile();
