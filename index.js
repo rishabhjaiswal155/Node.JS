@@ -220,11 +220,15 @@
 // readableStream.pipe(writtableStream);
 
 //Http Module and creating a node server
-
+//Json response
 const http = require("node:http");
 const server = http.createServer((req, resp) => {
-  resp.writeHead(200, { "content-type": "text/plain" });
-  resp.end("Hello Rishabh! you created your first node server");
+    const superHero={
+        firstName:'Rishabh',
+        lastName:'Jaiswal'
+    }
+  resp.writeHead(200, { "content-type": "application/json" });
+  resp.end(JSON.stringify(superHero));
 });
 
 server.listen(3000, () => {
