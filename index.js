@@ -220,15 +220,19 @@
 // readableStream.pipe(writtableStream);
 
 //Http Module and creating a node server
-//Json response
+//Json response and Html response
 const http = require("node:http");
+const fs=require("node:fs");
 const server = http.createServer((req, resp) => {
-    const superHero={
-        firstName:'Rishabh',
-        lastName:'Jaiswal'
-    }
-  resp.writeHead(200, { "content-type": "application/json" });
-  resp.end(JSON.stringify(superHero));
+    // const superHero={
+    //     firstName:'Rishabh',
+    //     lastName:'Jaiswal'
+    // }
+    //const html=fs.readFileSync("./index.html")
+    fs.createReadStream(__dirname+"/index.html").pipe(resp);
+  resp.writeHead(200, { "content-type": "text/html" });
+  //resp.end("<h1>Hello Rishabh!!Enjoying NodeJS</h1>");
+  //resp.end(html)
 });
 
 server.listen(3000, () => {
