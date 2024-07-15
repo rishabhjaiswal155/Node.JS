@@ -194,7 +194,7 @@
 
 // readFile();
 
-//Streams
+//Streams and Pipes
 //Four types of streams
 //1.Readable Stream Ex. reading from a file
 //2.Writtable Stream Ex. writting to a file
@@ -202,14 +202,19 @@
 //4.Transform Stream Ex.File Compression
 
 const fs = require("node:fs");
+const zlib = require("node:zlib");
+const gzip = zlib.createGzip();
 const readableStream = fs.createReadStream("./file.txt", {
   encoding: "utf-8",
   highWaterMark: 2,
 });
 
+readableStream.pipe(gzip).pipe(fs.WriteStream("./file2.txt.gz"));
 const writtableStream = fs.createWriteStream("./file2.txt");
 
-readableStream.on("data", (chunk) => {
-  console.log(chunk);
-  writtableStream.write(chunk);
-});
+// readableStream.on("data", (chunk) => {
+//   console.log(chunk);
+//   writtableStream.write(chunk);
+// });
+
+readableStream.pipe(writtableStream);
