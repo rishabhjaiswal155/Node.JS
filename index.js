@@ -222,23 +222,45 @@
 //Http Module and creating a node server
 //Json response and Html response
 //Html Template
-const http = require("node:http");
-const fs=require("node:fs");
-const server = http.createServer((req, resp) => {
-    // const superHero={
-    //     firstName:'Rishabh',
-    //     lastName:'Jaiswal'
-    // }
-    const name="Rishabh";
-    let html=fs.readFileSync("./index.html","utf-8")
-    html=html.replace("{{name}}",name);
-    //const html=fs.readFileSync("./index.html")
-    //fs.createReadStream(__dirname+"/index.html").pipe(resp);
-  resp.writeHead(200, { "content-type": "text/html" });
-  //resp.end("<h1>Hello Rishabh!!Enjoying NodeJS</h1>");
-  resp.end(html);
-});
+// const http = require("node:http");
+// const fs=require("node:fs");
+// const server = http.createServer((req, resp) => {
+//     // const superHero={
+//     //     firstName:'Rishabh',
+//     //     lastName:'Jaiswal'
+//     // }
+//     const name="Rishabh";
+//     let html=fs.readFileSync("./index.html","utf-8")
+//     html=html.replace("{{name}}",name);
+//     //const html=fs.readFileSync("./index.html")
+//     //fs.createReadStream(__dirname+"/index.html").pipe(resp);
+//   resp.writeHead(200, { "content-type": "text/html" });
+//   //resp.end("<h1>Hello Rishabh!!Enjoying NodeJS</h1>");
+//   resp.end(html);
+// });
 
+// server.listen(3000, () => {
+//   console.log("server active and running on port 3000");
+// });
+
+//Http Routing
+
+const http = require("node:http");
+const server = http.createServer((req, resp) => {
+  if (req.url === "/home") {
+    resp.writeHead(200, { "content-type": "text/plain" });
+    resp.end("Home Page");
+  } else if (req.url === "/about") {
+    resp.writeHead(200, { "content-type": "text/plain" });
+    resp.end("About page");
+  } else if (req.url === "/api") {
+    resp.writeHead(200, { "content-type": "application/json" });
+    resp.end(JSON.stringify({ name: "Rishabh", age: 28 }));
+  } else {
+    resp.writeHead(400);
+    resp.end("Error!!Page not Found");
+  }
+});
 server.listen(3000, () => {
-  console.log("server active and running on port 3000");
+  console.log("Server is Up and running on port 3000");
 });
