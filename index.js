@@ -119,15 +119,27 @@
 
 //Extending Event-Emitter
 
-const PizzaShop = require("./pizza-shop");
-const DrinkMachine = require("./drink-machine");
-const pizzaShop = new PizzaShop();
-const drinkMachine = new DrinkMachine();
-pizzaShop.on("order", (size, topping) => {
-  console.log(` order received !! Baking ${size} pizza with ${topping}`);
-  drinkMachine.serveDrink(size);
-});
-pizzaShop.order("large", "Panner");
-pizzaShop.displayorderNumber();
-pizzaShop.order("small", "Magherita");
-pizzaShop.displayorderNumber();
+// const PizzaShop = require("./pizza-shop");
+// const DrinkMachine = require("./drink-machine");
+// const pizzaShop = new PizzaShop();
+// const drinkMachine = new DrinkMachine();
+// pizzaShop.on("order", (size, topping) => {
+//   console.log(` order received !! Baking ${size} pizza with ${topping}`);
+//   drinkMachine.serveDrink(size);
+// });
+// pizzaShop.order("large", "Panner");
+// pizzaShop.displayorderNumber();
+// pizzaShop.order("small", "Magherita");
+// pizzaShop.displayorderNumber();
+
+
+//Character sets,Encoding,Streams and Buffers
+
+const buffer=new Buffer.from("Rishabh")
+console.log(buffer)
+console.log(buffer.toJSON())
+console.log(buffer.toString())
+buffer.write("IACSD")
+console.log(buffer.toString())
+
+
