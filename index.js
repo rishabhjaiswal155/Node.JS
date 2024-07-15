@@ -221,6 +221,7 @@
 
 //Http Module and creating a node server
 //Json response and Html response
+//Html Template
 const http = require("node:http");
 const fs=require("node:fs");
 const server = http.createServer((req, resp) => {
@@ -228,11 +229,14 @@ const server = http.createServer((req, resp) => {
     //     firstName:'Rishabh',
     //     lastName:'Jaiswal'
     // }
+    const name="Rishabh";
+    let html=fs.readFileSync("./index.html","utf-8")
+    html=html.replace("{{name}}",name);
     //const html=fs.readFileSync("./index.html")
-    fs.createReadStream(__dirname+"/index.html").pipe(resp);
+    //fs.createReadStream(__dirname+"/index.html").pipe(resp);
   resp.writeHead(200, { "content-type": "text/html" });
   //resp.end("<h1>Hello Rishabh!!Enjoying NodeJS</h1>");
-  //resp.end(html)
+  resp.end(html);
 });
 
 server.listen(3000, () => {
