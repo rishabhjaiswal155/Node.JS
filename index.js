@@ -175,21 +175,41 @@
 
 //fs promise module
 
-const fs = require("node:fs/promises");
-fs.readFile("./greet.txt", "utf-8")
-  .then((data) => console.log(data))
-  .catch((error) => console.log(error));
+// const fs = require("node:fs/promises");
+// fs.readFile("./greet.txt", "utf-8")
+//   .then((data) => console.log(data))
+//   .catch((error) => console.log(error));
 
-//fs promise module with async and await
+// //fs promise module with async and await
 
-const fs1 = require("node:fs/promises");
-async function readFile() {
-  try {
-    const data = await fs1.readFile("./file.txt", "utf-8");
-    console.log(data);
-  } catch (error) {
-    console.log(error);
-  }
-}
+// const fs1 = require("node:fs/promises");
+// async function readFile() {
+//   try {
+//     const data = await fs1.readFile("./file.txt", "utf-8");
+//     console.log(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-readFile();
+// readFile();
+
+//Streams
+//Four types of streams
+//1.Readable Stream Ex. reading from a file
+//2.Writtable Stream Ex. writting to a file
+//3.Duplex Stream Ex.Sockets
+//4.Transform Stream Ex.File Compression
+
+const fs = require("node:fs");
+const readableStream = fs.createReadStream("./file.txt", {
+  encoding: "utf-8",
+  highWaterMark: 2,
+});
+
+const writtableStream = fs.createWriteStream("./file2.txt");
+
+readableStream.on("data", (chunk) => {
+  console.log(chunk);
+  writtableStream.write(chunk);
+});
