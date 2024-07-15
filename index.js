@@ -132,14 +132,43 @@
 // pizzaShop.order("small", "Magherita");
 // pizzaShop.displayorderNumber();
 
-
 //Character sets,Encoding,Streams and Buffers
 
-const buffer=new Buffer.from("Rishabh")
-console.log(buffer)
-console.log(buffer.toJSON())
-console.log(buffer.toString())
-buffer.write("IACSD")
-console.log(buffer.toString())
+// const buffer=new Buffer.from("Rishabh")
+// console.log(buffer)
+// console.log(buffer.toJSON())
+// console.log(buffer.toString())
+// buffer.write("IACSD")
+// console.log(buffer.toString())
 
+//fs Module(Builtin module)
 
+const fs = require("node:fs");
+console.log("first");
+const filecontents = fs.readFileSync("./file.txt", "utf-8");
+console.log(filecontents);
+console.log("second");
+fs.readFile("./file.txt", "utf-8", (error, data) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(data);
+  }
+});
+console.log("Third");
+
+fs.writeFileSync("./greet.txt", "Enjoying coding in NodeJS,", (error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("file written");
+  }
+});
+
+fs.writeFile("./greet.txt", "NodeJS is intresting",{flag:'a'}, (error) => {
+  if (error) {
+    console.log();
+  } else {
+    console.log("file written");
+  }
+});
