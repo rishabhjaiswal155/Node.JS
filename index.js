@@ -201,20 +201,32 @@
 //3.Duplex Stream Ex.Sockets
 //4.Transform Stream Ex.File Compression
 
-const fs = require("node:fs");
-const zlib = require("node:zlib");
-const gzip = zlib.createGzip();
-const readableStream = fs.createReadStream("./file.txt", {
-  encoding: "utf-8",
-  highWaterMark: 2,
-});
-
-readableStream.pipe(gzip).pipe(fs.WriteStream("./file2.txt.gz"));
-const writtableStream = fs.createWriteStream("./file2.txt");
-
-// readableStream.on("data", (chunk) => {
-//   console.log(chunk);
-//   writtableStream.write(chunk);
+// const fs = require("node:fs");
+// const zlib = require("node:zlib");
+// const gzip = zlib.createGzip();
+// const readableStream = fs.createReadStream("./file.txt", {
+//   encoding: "utf-8",
+//   highWaterMark: 2,
 // });
 
-readableStream.pipe(writtableStream);
+// readableStream.pipe(gzip).pipe(fs.WriteStream("./file2.txt.gz"));
+// const writtableStream = fs.createWriteStream("./file2.txt");
+
+// // readableStream.on("data", (chunk) => {
+// //   console.log(chunk);
+// //   writtableStream.write(chunk);
+// // });
+
+// readableStream.pipe(writtableStream);
+
+//Http Module and creating a node server
+
+const http = require("node:http");
+const server = http.createServer((req, resp) => {
+  resp.writeHead(200, { "content-type": "text/plain" });
+  resp.end("Hello Rishabh! you created your first node server");
+});
+
+server.listen(3000, () => {
+  console.log("server active and running on port 3000");
+});
