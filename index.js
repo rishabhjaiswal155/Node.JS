@@ -7,13 +7,11 @@
 // const sum1 = addFn(10, 5);
 // console.log(sum1);
 
-
 //Module Scope and Immediate Invoked Function Expression(IIFE)
 //Each loaded module has private scope to avoid conflicts in varable and Functions name
 
 // require("./batman")
 // require("./superman")
-
 
 //Module Caching
 
@@ -25,7 +23,6 @@
 // const hanuman=require("./super-hero")
 // console.log(hanuman.getName())
 
-
 // const superHero=require("./super-hero")
 
 // const batman =new superHero("Batman")
@@ -35,7 +32,6 @@
 
 // const hanuman=new superHero("Hanuman")
 // console.log(hanuman.getName())
-
 
 //Import export patterns
 //pattern-1
@@ -60,7 +56,6 @@
 // console.log(math.add(2,3))
 // console.log(math.sub(2,3))
 
-
 //pattern-5
 // const math=require("./math")
 // console.log(math.add(2,3))
@@ -71,11 +66,9 @@
 // console.log(math.add(2,3))
 // console.log(math.sub(2,3))
 
-
 //Importing Json
 // const data=require("./data.json")
 // console.log(data.address.city)
-
 
 //Path Modules(Built in modules of node)
 // const path=require("node:path")
@@ -108,19 +101,33 @@
 // console.log(path.resolve("/folder1","//folder2","../index.html"))
 // console.log(path.resolve(__dirname,"data.json"))
 
-
 //Events Module
 
-const EventEmitter=require("node:events")
-const emitter=new EventEmitter()
+// const EventEmitter=require("node:events")
+// const emitter=new EventEmitter()
 
-emitter.on("order-pizza",(size,topping)=>{
-    console.log(`order received Baking a ${size} pizza with ${topping}`)
-})
+// emitter.on("order-pizza",(size,topping)=>{
+//     console.log(`order received Baking a ${size} pizza with ${topping}`)
+// })
 
-emitter.on("order-pizza",(size)=>{
-    if(size==='large'){
-    console.log("Serving Complimentary drinks enjoy!!!")}
-})
+// emitter.on("order-pizza",(size)=>{
+//     if(size==='large'){
+//     console.log("Serving Complimentary drinks enjoy!!!")}
+// })
 
-emitter.emit("order-pizza","large","Mushroom")
+// emitter.emit("order-pizza","large","Mushroom")
+
+//Extending Event-Emitter
+
+const PizzaShop = require("./pizza-shop");
+const DrinkMachine = require("./drink-machine");
+const pizzaShop = new PizzaShop();
+const drinkMachine = new DrinkMachine();
+pizzaShop.on("order", (size, topping) => {
+  console.log(` order received !! Baking ${size} pizza with ${topping}`);
+  drinkMachine.serveDrink(size);
+});
+pizzaShop.order("large", "Panner");
+pizzaShop.displayorderNumber();
+pizzaShop.order("small", "Magherita");
+pizzaShop.displayorderNumber();
