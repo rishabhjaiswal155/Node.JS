@@ -267,11 +267,20 @@
 
 //Thread Pool
 //Below is async method which is blocking,thus  main thread passes the blocking code to thread pool to execute
-const fs = require("node:fs");
-console.log("first");
-fs.readFile("file.txt", "utf-8", (err,data) => {
-  console.log("file contents");
-});
+// const fs = require("node:fs");
+// console.log("first");
+// fs.readFile("file.txt", "utf-8", (err,data) => {
+//   console.log("file contents");
+// });
 
-console.log("second");
+// console.log("second");
 
+//crypto module
+//Every method in NodeJs which is having suffix as sync always runs on main thread and is blocking
+
+const crypto = require("node:crypto");
+const start = Date.now();
+crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
+crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
+crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
+console.log("Hash:", Date.now() - start);
