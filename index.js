@@ -287,17 +287,35 @@
 
 //Experiment-2
 //Few Async methods like fs.readFile and crypto.pbkdf2 runs on libuv thread pool
-const crypto = require("node:crypto");
-process.env.UV_THREADPOOL_SIZE = 5;
-const MAX_CALLS = 5;
-const start = Date.now();
+// const crypto = require("node:crypto");
+// process.env.UV_THREADPOOL_SIZE = 5;
+// const MAX_CALLS = 5;
+// const start = Date.now();
 
-for (let i = 0; i < MAX_CALLS; i++) {
-  crypto.pbkdf2("password", "salt", 100000, 512, "sha512", () => {
-    console.log(`Hash: ${i + 1}`, Date.now() - start);
-  });
-}
+// for (let i = 0; i < MAX_CALLS; i++) {
+//   crypto.pbkdf2("password", "salt", 100000, 512, "sha512", () => {
+//     console.log(`Hash: ${i + 1}`, Date.now() - start);
+//   });
+// }
 
 //libUv Thread pool has 4 threads and can be increased using
 //process.env.UV_THREADPOOL_SIZE=5
+
+
+//Network i/o
+//Although both pbkdf2 and https.request methods are Asynchronous but https.request doesnot seems to runs on thread pool
+//Because https.request is an Network I/O operation not cpu based.
+//Also https.request does not depends on CpU cores 
+const https=require("node:https")
+const MAX_CALLS=13;
+const start=Date.now();
+for(let i=0;i<MAX_CALLS;i++){
+https.request("https://www.google.co.in",(res)=>{
+    res.on("data",()=>{});
+    res.on("end",()=>{
+        console.log(`Request: ${i+1}`,Date.now()-start)
+    })
+})
+.end();
+}
 
