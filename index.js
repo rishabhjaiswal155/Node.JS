@@ -301,21 +301,55 @@
 //libUv Thread pool has 4 threads and can be increased using
 //process.env.UV_THREADPOOL_SIZE=5
 
-
 //Network i/o
 //Although both pbkdf2 and https.request methods are Asynchronous but https.request doesnot seems to runs on thread pool
 //Because https.request is an Network I/O operation not cpu based.
-//Also https.request does not depends on CpU cores 
-const https=require("node:https")
-const MAX_CALLS=13;
-const start=Date.now();
-for(let i=0;i<MAX_CALLS;i++){
-https.request("https://www.google.co.in",(res)=>{
-    res.on("data",()=>{});
-    res.on("end",()=>{
-        console.log(`Request: ${i+1}`,Date.now()-start)
-    })
-})
-.end();
-}
+//Also https.request does not depends on CpU cores
+// const https=require("node:https")
+// const MAX_CALLS=13;
+// const start=Date.now();
+// for(let i=0;i<MAX_CALLS;i++){
+// https.request("https://www.google.co.in",(res)=>{
+//     res.on("data",()=>{});
+//     res.on("end",()=>{
+//         console.log(`Request: ${i+1}`,Date.now()-start)
+//     })
+// })
+// .end();
+// }
 
+//Micro-Task Queues
+//Experiment 1
+//All javaScript synchronous code takes priority over async code
+
+// console.log("First");
+// process.nextTick(() => console.log("This is process.nextTick"));
+// console.log("second");
+
+//Experiment 2
+//All callbacks in nextClick queue are executed before the callbacks in promise queue
+
+// Promise.resolve().then(() => {
+//   console.log("This is promise.resolve 1");
+// });
+// process.nextTick(() => {
+//   console.log("This is process.nextTick 1");
+// });
+
+process.nextTick(() => console.log("This is process.nextTick 1"));
+process.nextTick(() => {
+  console.log("This is process.nextTick 2");
+  process.nextTick(() => {
+    console.log("This is inner process.nextTick of process.nextTick 2");
+  });
+});
+process.nextTick(() => console.log("This is process.nextTick 3"));
+
+Promise.resolve().then(() => console.log("This is promise.resolve 1"));
+Promise.resolve().then(() => {
+  console.log("This is promise.resolve 2");
+  process.nextTick(() =>
+    console.log("This is process.nextTick inside of promise.resolve 2")
+  );
+  Promise.resolve().then(() => console.log("This is promise.resolve 3"));
+});
