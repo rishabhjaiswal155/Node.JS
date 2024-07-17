@@ -245,22 +245,33 @@
 
 //Http Routing
 
-const http = require("node:http");
-const server = http.createServer((req, resp) => {
-  if (req.url === "/home") {
-    resp.writeHead(200, { "content-type": "text/plain" });
-    resp.end("Home Page");
-  } else if (req.url === "/about") {
-    resp.writeHead(200, { "content-type": "text/plain" });
-    resp.end("About page");
-  } else if (req.url === "/api") {
-    resp.writeHead(200, { "content-type": "application/json" });
-    resp.end(JSON.stringify({ name: "Rishabh", age: 28 }));
-  } else {
-    resp.writeHead(400);
-    resp.end("Error!!Page not Found");
-  }
+// const http = require("node:http");
+// const server = http.createServer((req, resp) => {
+//   if (req.url === "/home") {
+//     resp.writeHead(200, { "content-type": "text/plain" });
+//     resp.end("Home Page");
+//   } else if (req.url === "/about") {
+//     resp.writeHead(200, { "content-type": "text/plain" });
+//     resp.end("About page");
+//   } else if (req.url === "/api") {
+//     resp.writeHead(200, { "content-type": "application/json" });
+//     resp.end(JSON.stringify({ name: "Rishabh", age: 28 }));
+//   } else {
+//     resp.writeHead(400);
+//     resp.end("Error!!Page not Found");
+//   }
+// });
+// server.listen(3000, () => {
+//   console.log("Server is Up and running on port 3000");
+// });
+
+//Thread Pool
+//Below is async method which is blocking,thus  main thread passes the blocking code to thread pool to execute
+const fs = require("node:fs");
+console.log("first");
+fs.readFile("file.txt", "utf-8", (err,data) => {
+  console.log("file contents");
 });
-server.listen(3000, () => {
-  console.log("Server is Up and running on port 3000");
-});
+
+console.log("second");
+
