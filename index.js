@@ -397,6 +397,29 @@
 //Experiment 5
 //callbacks in setTimeout in  timer queue executes in FIFO order
 
-setTimeout(()=>console.log("This is setTimeout 1"),1000)
-setTimeout(()=>console.log("This is setTimeout 2"),3000)
-setTimeout(()=>console.log("This is setTimeout 3"),500)
+// setTimeout(()=>console.log("This is setTimeout 1"),1000)
+// setTimeout(()=>console.log("This is setTimeout 2"),3000)
+// setTimeout(()=>console.log("This is setTimeout 3"),500)
+
+//Experiment 6
+//Callbacks of Microtask queue executes before the async method of I/O queue
+
+// const fs = require("node:fs");
+// fs.readFile(__filename, () => console.log("This is I/O 1"));
+// process.nextTick(() => console.log("This is process.nextTick 1"));
+
+//Experiment 7
+//when the  callback of setTimout is delay with 0 ms then the order of execution between timer queue and I/O queue cannot be guranteed
+//But after version 16 i think timer queue will execute first then I/O queue
+// const fs = require("node:fs");
+// fs.readFile(__filename, () => console.log("This is I/O 1"));
+// setTimeout(() => console.log("This is setTimeOut 1"), 0);
+
+
+//Experiment 8
+//call backs of microtask queue will execute before the Timerqueue and I/o queue
+
+const fs=require("node:fs")
+fs.readFile(__filename,()=>console.log("This is I/O 1"))
+setTimeout(()=>console.log("This is setTimeout 1"),0)
+process.nextTick(()=>console.log("This is Microtask 1"))
