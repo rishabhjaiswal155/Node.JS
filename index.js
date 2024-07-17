@@ -278,9 +278,21 @@
 //crypto module
 //Every method in NodeJs which is having suffix as sync always runs on main thread and is blocking
 
+// const crypto = require("node:crypto");
+// const start = Date.now();
+// crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
+// crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
+// crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
+// console.log("Hash:", Date.now() - start);
+
+//Experiment-2
+//Few Async methods like fs.readFile and crypto.pbkdf2 runs on libuv thread pool
 const crypto = require("node:crypto");
+const MAX_CALLS = 3;
 const start = Date.now();
-crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
-crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
-crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
-console.log("Hash:", Date.now() - start);
+
+for (let i = 0; i < MAX_CALLS; i++) {
+  crypto.pbkdf2("password", "salt", 100000, 512, "sha512", () => {
+    console.log(`Hash: ${i + 1}`, Date.now() - start);
+  });
+}
