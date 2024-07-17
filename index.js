@@ -415,7 +415,6 @@
 // fs.readFile(__filename, () => console.log("This is I/O 1"));
 // setTimeout(() => console.log("This is setTimeOut 1"), 0);
 
-
 //Experiment 8
 //call backs of microtask queue will execute before the Timerqueue and I/o queue
 
@@ -424,12 +423,61 @@
 // setTimeout(()=>console.log("This is setTimeout 1"),0)
 // process.nextTick(()=>console.log("This is Microtask 1"))
 
-
 //Experiment 9 I/O polling
 //I/O events are polled and callback functions are added in I/O queue only after I/O is completed
-const fs=require("node:fs")
-fs.readFile(__filename,()=>console.log("This is I/O 1"))
-setImmediate(()=>console.log("This is setImmediate 1 "))
-process.nextTick(()=>console.log("This is process.nextTick 1"))
-Promise.resolve().then(()=>console.log("This is promise.resolve 1"))
-setTimeout(()=>console.log("This is setTimeOut 1"))
+// const fs=require("node:fs")
+// fs.readFile(__filename,()=>console.log("This is I/O 1"))
+// setImmediate(()=>console.log("This is setImmediate 1 "))
+// process.nextTick(()=>console.log("This is process.nextTick 1"))
+// Promise.resolve().then(()=>console.log("This is promise.resolve 1"))
+// setTimeout(()=>console.log("This is setTimeOut 1"),0)
+
+//Check Queue
+//experiment 10
+//Check queues callbacks are executed after Microtask callbacks,timer callbacks,I/O callbacks
+// const fs = require("node:fs");
+// fs.readFile(__filename, () => {
+//   console.log("This is I/O 1");
+//   setImmediate(() => console.log("This is inner setImmediate 1 of I/O 1"));
+// });
+// process.nextTick(() => console.log("This is process.nextTick 1"));
+// Promise.resolve().then(() => console.log("This is promise.resolve 1"));
+// setTimeout(() => console.log("This is setTimeOut 1"),0);
+
+//Experiment 11
+//the callbacks of microtask queue executes between I/O queue and check queue
+// const fs = require("node:fs");
+// fs.readFile(__filename, () => {
+//   console.log("This is I/O 1");
+//   setImmediate(() => console.log("This is inner setImmediate 1 of I/O 1"));
+//   process.nextTick(() => console.log("This is  inner process.nextTick 1 of I/O"));
+//   Promise.resolve().then(() => console.log("This is inner promise.resolve 1 of I/O"));
+// });
+// setTimeout(() => console.log("This is setTimeOut 1"),0);
+
+//Experiment 12
+//microtask callbacks can execute between callbacks of check queue
+
+// setImmediate(() => console.log("This is check queue 1"));
+// setImmediate(() => {
+//   console.log("This is check queue 2");
+//   process.nextTick(() =>
+//     console.log("This is inner process.nextTick of check 2")
+//   );
+//   Promise.resolve().then(() =>
+//     console.log("This is inner promise.resolve inside check 2")
+//   );
+// });
+// setImmediate(() => {
+//   console.log("This is check queue 3");
+// });
+
+//Experiment 13
+//when running setTimeout with delay of 0 ms and setImmediate method then order of execution is not guranteed
+//But after nodeJs 16,timer will execute first then check
+setTimeout(() => {
+  console.log("This is timer 1");
+},0);
+setImmediate(() => {
+  console.log("This is check 1");
+});
