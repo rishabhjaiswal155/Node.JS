@@ -419,7 +419,17 @@
 //Experiment 8
 //call backs of microtask queue will execute before the Timerqueue and I/o queue
 
+// const fs=require("node:fs")
+// fs.readFile(__filename,()=>console.log("This is I/O 1"))
+// setTimeout(()=>console.log("This is setTimeout 1"),0)
+// process.nextTick(()=>console.log("This is Microtask 1"))
+
+
+//Experiment 9 I/O polling
+//I/O events are polled and callback functions are added in I/O queue only after I/O is completed
 const fs=require("node:fs")
 fs.readFile(__filename,()=>console.log("This is I/O 1"))
-setTimeout(()=>console.log("This is setTimeout 1"),0)
-process.nextTick(()=>console.log("This is Microtask 1"))
+setImmediate(()=>console.log("This is setImmediate 1 "))
+process.nextTick(()=>console.log("This is process.nextTick 1"))
+Promise.resolve().then(()=>console.log("This is promise.resolve 1"))
+setTimeout(()=>console.log("This is setTimeOut 1"))
