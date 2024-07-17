@@ -475,9 +475,24 @@
 //Experiment 13
 //when running setTimeout with delay of 0 ms and setImmediate method then order of execution is not guranteed
 //But after nodeJs 16,timer will execute first then check
-setTimeout(() => {
-  console.log("This is timer 1");
-},0);
-setImmediate(() => {
-  console.log("This is check 1");
-});
+// setTimeout(() => {
+//   console.log("This is timer 1");
+// },0);
+// setImmediate(() => {
+//   console.log("This is check 1");
+// });
+
+//Close queue
+//Experiment 14
+//close queue callbacks are executed after all the callbacks of other queues executes in the given iteration of event loop
+
+const fs = require("node:fs");
+const readableStream = fs.createReadStream(__filename);
+readableStream.close();
+readableStream.on("close", () =>
+  console.log("This is readableStream from close event 1")
+);
+setImmediate(() => console.log("This is check 1"));
+setTimeout(() => console.log("This is timer 1"), 0);
+process.nextTick(() => console.log("This is porcees.nextTick 1"));
+Promise.resolve().then(() => console.log("this is promise.resolved 1"));
