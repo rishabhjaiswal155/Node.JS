@@ -288,7 +288,8 @@
 //Experiment-2
 //Few Async methods like fs.readFile and crypto.pbkdf2 runs on libuv thread pool
 const crypto = require("node:crypto");
-const MAX_CALLS = 3;
+process.env.UV_THREADPOOL_SIZE = 5;
+const MAX_CALLS = 5;
 const start = Date.now();
 
 for (let i = 0; i < MAX_CALLS; i++) {
@@ -296,3 +297,7 @@ for (let i = 0; i < MAX_CALLS; i++) {
     console.log(`Hash: ${i + 1}`, Date.now() - start);
   });
 }
+
+//libUv Thread pool has 4 threads and can be increased using
+//process.env.UV_THREADPOOL_SIZE=5
+
