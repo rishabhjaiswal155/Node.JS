@@ -336,20 +336,67 @@
 //   console.log("This is process.nextTick 1");
 // });
 
-process.nextTick(() => console.log("This is process.nextTick 1"));
-process.nextTick(() => {
-  console.log("This is process.nextTick 2");
-  process.nextTick(() => {
-    console.log("This is inner process.nextTick of process.nextTick 2");
-  });
-});
-process.nextTick(() => console.log("This is process.nextTick 3"));
+//Experiment 3
+//Microtask queues executes before the Timer Queue
 
-Promise.resolve().then(() => console.log("This is promise.resolve 1"));
-Promise.resolve().then(() => {
-  console.log("This is promise.resolve 2");
-  process.nextTick(() =>
-    console.log("This is process.nextTick inside of promise.resolve 2")
-  );
-  Promise.resolve().then(() => console.log("This is promise.resolve 3"));
-});
+// setTimeout(() => console.log("This is setTimeout 1"), 0);
+// setTimeout(() => console.log("This is setTimeout 2"), 0);
+// setTimeout(() => console.log("This is setTimeout 3"), 0);
+// process.nextTick(() => console.log("This is process.nextTick 1"));
+// process.nextTick(() => {
+//   console.log("This is process.nextTick 2");
+//   process.nextTick(() => {
+//     console.log("This is inner process.nextTick of process.nextTick 2");
+//   });
+// });
+// process.nextTick(() => console.log("This is process.nextTick 3"));
+
+// Promise.resolve().then(() => console.log("This is promise.resolve 1"));
+// Promise.resolve().then(() => {
+//   console.log("This is promise.resolve 2");
+//   process.nextTick(() =>
+//     console.log("This is process.nextTick inside of promise.resolve 2")
+//   );
+//   Promise.resolve().then(() => console.log("This is promise.resolve 3"));
+// });
+
+//Experiment 4
+//microtask queues callbacks executes between timer queue callbacks
+
+// setTimeout(() => console.log("This is setTimeout 1"), 0);
+// setTimeout(() => {
+//   console.log("This is setTimeout 2");
+//   process.nextTick(() => {
+//     console.log("This is inner process.nextTick of setTimeout 2");
+//   });
+// }, 0);
+// setTimeout(() => {
+//   console.log("This is setTimeout 3");
+//   Promise.resolve().then(() =>
+//     console.log("This is inner promise.resolve of setTimeout 3")
+//   );
+// }, 0);
+// process.nextTick(() => console.log("This is process.nextTick 1"));
+// process.nextTick(() => {
+//   console.log("This is process.nextTick 2");
+//   process.nextTick(() => {
+//     console.log("This is inner process.nextTick of process.nextTick 2");
+//   });
+// });
+// process.nextTick(() => console.log("This is process.nextTick 3"));
+
+// Promise.resolve().then(() => console.log("This is promise.resolve 1"));
+// Promise.resolve().then(() => {
+//   console.log("This is promise.resolve 2");
+//   process.nextTick(() =>
+//     console.log("This is process.nextTick inside of promise.resolve 2")
+//   );
+//   Promise.resolve().then(() => console.log("This is promise.resolve 3"));
+// });
+
+//Experiment 5
+//callbacks in setTimeout in  timer queue executes in FIFO order
+
+setTimeout(()=>console.log("This is setTimeout 1"),1000)
+setTimeout(()=>console.log("This is setTimeout 2"),3000)
+setTimeout(()=>console.log("This is setTimeout 3"),500)
