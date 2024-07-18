@@ -13,6 +13,6 @@
   "author": "rishabh",
   "license": "ISC",
   "dependencies": {
-    "upper-case": "^3.0.0"
+    "upper-case": "^2.0.2"
   }
 }
