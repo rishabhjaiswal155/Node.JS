@@ -1,0 +1,15 @@
+{
+  "name": "greet-rishabh",
+  "version": "1.0.0",
+  "description": "greeting package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "greet",
+    "rishabh"
+  ],
+  "author": "rishabh",
+  "license": "ISC"
+}
